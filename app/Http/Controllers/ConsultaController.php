@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Consulta;
+use App\Models\Mascota;
+use Illuminate\Support\Facades\Crypt;
 
 class ConsultaController extends Controller
 {
+    private $modulo = "consultas";
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,27 @@ class ConsultaController extends Controller
      */
     public function index()
     {
-        //
+        $consultas = Consulta::all();      
+
+        return view('consultas.lista_consultas', ['titulo'=>'Gestionar consultas',
+                                                          'consultas' => $consultas,
+                                                          'modulo_activo' => $this->modulo
+                                                         ]);
+    }
+
+
+    public function consultas_mascota($id)
+    {
+        $id = Crypt::decryptString($id);//Desencriptando parametro ID
+        $consultas = Consulta::where('mas_id', $id)->get();
+        $mascota = Mascota::where('mas_id', $id)->first();
+        
+        return view('consultas.lista_consultas', ['titulo'=>'Gestionar consultas veterinarias',
+                                                          'consultas' => $consultas,
+                                                          'mas_id' => $id,
+                                                          'mascota' => $mascota,
+                                                          'modulo_activo' => $this->modulo
+                                                         ]);
     }
 
     /**

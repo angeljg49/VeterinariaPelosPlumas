@@ -5,47 +5,29 @@
 
 <div class="col-md-10 content-pane">
     <h3 class="title-header" style="text-transform: uppercase;">
-        <i class="fa fa-tags"></i>
+        <i class="fa fa-file"></i>
         {{$titulo}}
-        <a href="{{url('mascotas/nuevo/'.$propietario->pro_id)}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> NUEVA MASCOTA</a>
+        <a href="{{url('consultas/'.Crypt::encryptString($mas_id).'/autorizar')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Nueva consulta</a>
     </h3>
+    <div class="alert alert-secondary" role="alert">
+        <div className="row">
+            <div class="col-md-6"><strong class="text-success">Mascota: </strong>{{$mascota->mas_nombre}}</div>
+            <div class="col-md-6"><strong class="text-success">Propietario: </strong>{{$mascota->propietario->pro_nombre_completo}}</div>
+        </div>
+    </div>    
     <div class="row">
         <div class="col-12">
                 <!-- inicio card  -->
                 <div class="card card-stat">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="text-right text-success">
-                                    Propietario:
-                                </h4>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="text-primary">
-                                    {{$propietario->pro_nombre_completo}}
-                                </h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="text-right text-success">
-                                    Dirección:
-                                </h4>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="text-primary">
-                                    {{$propietario->pro_direccion}} {{$propietario->pro_zona}}
-                                </h4>
-                            </div>
-                        </div>
-                        @if($mascotas->count() == 0)
+                        @if($consultas->count() == 0)
                         <div class="alert alert-info">
                             <div class="media">
                                 <img src="{{asset('img/alert-info.png')}}" class="align-self-center mr-3" alt="...">
                                 <div class="media-body">
                                     <h5 class="mt-0">Nota.-</h5>
                                     <p>
-                                        NO se tienen mascotas registradas hasta el momento.
+                                        NO se tienen cirugías registradas hasta el momento.
                                     </p>
                                 </div>
                             </div>
@@ -55,27 +37,27 @@
                             <table class="table table-bordered tabla-datos">
                                 <thead>
                                 <tr>
-                                    <th>NOMBRE</th>
-                                    <th>EDAD</th>
-                                    <th>SEXO</th>
-                                    <th>COLOR</th>
+                                    <th>MOTIVO CONSULTA</th>
+                                    <th>DIAGNOSTIVO PRESUNTIVO</th>
+                                    <th>TRATAMIENTO</th>
+                                    <th>EXAMENES COMPLEMENTARIOS</th>
                                     <th>OPCION</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($mascotas as $item)
+                                @foreach($consultas as $item)
                                 <tr>
                                     <td class="text-center">
-                                        {{$item->mas_nombre}}
+                                        {{$item->con_motivo}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->mas_edad}}
+                                        {{$item->con_diagnostivo_presuntivo}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->mas_sexo}}
+                                        {{$item->tratamientos.length == 0 ? "NO": "SI"}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->mas_color}}
+                                        {{$item->examenes_complementarios.length == 0 ? "NO" : "SI"}}
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -83,17 +65,7 @@
                                             OPCION
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="{{url('mascotas/'.Crypt::encryptString($item->mas_id).'/consultas')}}"><i class="fa fa-medkit"></i> Consultas</a>
-                                            <a class="dropdown-item" href="{{url('mascotas/'.Crypt::encryptString($item->mas_id).'/vacunas')}}"><i class="fa fa-battery-half"></i> Vacunas</a>
-                                            <a class="dropdown-item" href="{{url('mascotas/'.Crypt::encryptString($item->mas_id).'/cirugias')}}"><i class="fa fa-file"></i> Cirugias</a>
-                                            <a class="dropdown-item" href="{{url('mascotas/'.Crypt::encryptString($item->mas_id).'/citas')}}"><i class="fa fa-tags"></i> Citas medicas</a>
-                                            <hr class="dropdown-divider">                                            
-                                            <a class="dropdown-item" href="{{url('mascotas/'.Crypt::encryptString($item->mas_id).'/editar')}}"><i class="fa fa-edit"></i> Editar</a>
-                                            @if ($item->consultas->count() > 0)
-                                            <a class="dropdown-item disabled" href="#" title="La mascota tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
-                                            @else
-                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->mas_id}}" data-descripcion="{{$item->mas_nombre}}" data-toggle="modal" data-target="#modal-eliminar-mascota" href="#"><i class="fa fa-trash"></i> Eliminar</a>
-                                            @endif
+                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->aci_id}}" data-descripcion="consulta de fecha {{$item->aci_fecha}} y hora {{$item->aci_hora_ingreso}}" data-toggle="modal" data-target="#modal-eliminar-consulta" href="#"><i class="fa fa-trash"></i> Eliminar</a>
                                           </div>
                                         </div>
                                     </td>
@@ -106,13 +78,14 @@
                     </div>
                 </div>
                 <!-- fin card  -->
+
         </div>
     </div>
 </div>
 
 
-{{-- INICIO MODAL: ELIMINAR mascota --}}
-<div class="modal fade" id="modal-eliminar-mascota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- INICIO MODAL: ELIMINAR vacuna --}}
+<div class="modal fade" id="modal-eliminar-consulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#eee;">
@@ -145,7 +118,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
-          <form id="form-eliminar-item" action="{{url('mascotas')}}" data-simple-action="{{url('mascotas')}}" method="post">
+          <form id="form-eliminar-item" action="{{url('consultas/delete_consulta')}}" data-simple-action="{{url('consultas/delete_consulta')}}" method="post">
             @method('delete')
             @csrf
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Si, eliminar</button>
@@ -154,7 +127,7 @@
       </div>
     </div>
   </div>
-  {{-- FIN MODAL: ELIMINAR mascota --}}
+  {{-- FIN MODAL: ELIMINAR vacuna --}}
 
 
 <script type="text/javascript">

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('eco_descripcion');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('con_id')->references('con_id')->on('consulta');
+            $table->foreign('con_id')->references('con_id')->on('consulta')->onDelete('cascade');
         });
     }
 

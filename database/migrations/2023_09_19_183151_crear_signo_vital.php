@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('svi_mm');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('con_id')->references('con_id')->on('consulta');
+            $table->foreign('con_id')->references('con_id')->on('consulta')->onDelete('cascade');
         });
     }
 

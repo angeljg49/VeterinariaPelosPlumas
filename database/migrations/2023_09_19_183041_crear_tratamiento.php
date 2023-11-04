@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('tra_observaciones_indicaciones');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('con_id')->references('con_id')->on('consulta');
+            $table->foreign('con_id')->references('con_id')->on('consulta')->onDelete('cascade');
         });
     }
 

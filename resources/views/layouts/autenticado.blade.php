@@ -60,16 +60,19 @@
                         <a class="nav-item nav-link @if($modulo_activo == 'dashboard'): active @endif" href="{{url('dashboard')}}"><i class="fa fa-home"></i> INICIO</a>
                         @endif
                         @if (Auth::user()->usu_rol == 1)
+                        <a class="nav-item nav-link @if($modulo_activo == 'citas'): active @endif" href="{{url('citas')}}"><i class="fa fa-tags"></i> CITAS</a>
+                        @endif
+                        @if (Auth::user()->usu_rol == 1)
                         <a class="nav-item nav-link @if($modulo_activo == 'propietarios'): active @endif" href="{{url('propietarios')}}"><i class="fa fa-users"></i> CLIENTES</a>
+                        @endif
+                        @if (Auth::user()->usu_rol == 1)
+                        <a class="nav-item nav-link @if($modulo_activo == 'vacunas'): active @endif" href="{{url('vacunas')}}"><i class="fa fa-wrench"></i> VACUNAS</a>
                         @endif
                         @if (Auth::user()->usu_rol == 1)
                         <a class="nav-item nav-link @if($modulo_activo == 'especies'): active @endif" href="{{url('especies')}}"><i class="fa fa-eye"></i> ESPECIES</a>
                         @endif
                         @if (Auth::user()->usu_rol == 1)
                         <a class="nav-item nav-link @if($modulo_activo == 'razas'): active @endif" href="{{url('razas')}}"><i class="fa fa-line-chart"></i> RAZAS</a>
-                        @endif
-                        @if (Auth::user()->usu_rol == 1)
-                        <a class="nav-item nav-link @if($modulo_activo == 'vacunas'): active @endif" href="{{url('vacunas')}}"><i class="fa fa-wrench"></i> VACUNAS</a>
                         @endif
                         @if (Auth::user()->usu_rol == 1)
                         <a class="nav-item nav-link @if($modulo_activo == 'veterinarios'): active @endif" href="{{url('veterinarios')}}"><i class="fa fa-check"></i> VETERINARIOS</a>

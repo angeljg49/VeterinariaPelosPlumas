@@ -10,6 +10,7 @@ use App\Http\Controllers\RazaController;
 use App\Http\Controllers\PropietarioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MascotaController;
+use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CirugiaController;
 
 
@@ -49,37 +50,37 @@ Route::post('/auth', [AuthController::class ,'autenticar']);
 */
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
 
-/*
-----------------------------------------
-* RUTAS: PERSONAL
-----------------------------------------
-*/
-Route::delete('/destinos/{id}', [PersonalController::class ,'destroy_destino'])->middleware('auth');
-Route::post('/destinos', [PersonalController::class ,'store_destino'])->middleware('auth');
-Route::get('/personal/{id}/nuevo_destino', [PersonalController::class ,'nuevo_destino'])->middleware('auth');
-Route::resource('/personal', PersonalController::class)->middleware('auth');
-/*
-----------------------------------------
-* RUTAS: ADMINISTRATIVO
-----------------------------------------
-*/
-Route::resource('/unidades', UnidadController::class)->middleware('auth');
-                            // ->middleware('auth');
-Route::resource('/cargos', CargoController::class)->middleware('auth');
-/*
-----------------------------------------
-* RUTAS: INSPECCIONES Y TARJETAS
-----------------------------------------
-*/
-Route::resource('/inspecciones', InspeccionController::class)->middleware('auth');
+// /*
+// ----------------------------------------
+// * RUTAS: PERSONAL
+// ----------------------------------------
+// */
+// Route::delete('/destinos/{id}', [PersonalController::class ,'destroy_destino'])->middleware('auth');
+// Route::post('/destinos', [PersonalController::class ,'store_destino'])->middleware('auth');
+// Route::get('/personal/{id}/nuevo_destino', [PersonalController::class ,'nuevo_destino'])->middleware('auth');
+// Route::resource('/personal', PersonalController::class)->middleware('auth');
+// /*
+// ----------------------------------------
+// * RUTAS: ADMINISTRATIVO
+// ----------------------------------------
+// */
+// Route::resource('/unidades', UnidadController::class)->middleware('auth');
+//                             // ->middleware('auth');
+// Route::resource('/cargos', CargoController::class)->middleware('auth');
+// /*
+// ----------------------------------------
+// * RUTAS: INSPECCIONES Y TARJETAS
+// ----------------------------------------
+// */
+// Route::resource('/inspecciones', InspeccionController::class)->middleware('auth');
 
-Route::put('/tarjetas/{id}/editar_actividad', [TarjetaController::class ,'update_actividad'])->middleware('auth');
-Route::get('/tarjetas/{id}/editar_actividad', [TarjetaController::class ,'editar_actividad'])->middleware('auth');
-Route::delete('/tarjetas/{id1}/eliminar_actividad/{id2}', [TarjetaController::class ,'destroy_actividad'])->middleware('auth');
-Route::post('/tarjetas/{id}/nueva_actividad', [TarjetaController::class ,'store_actividad'])->middleware('auth');
-Route::get('/tarjetas/{id}/nueva_actividad', [TarjetaController::class ,'nueva_actividad'])->middleware('auth');
-Route::get('/tarjetas/{id}/actividades', [TarjetaController::class ,'lista_actividades'])->middleware('auth');
-Route::resource('/tarjetas', TarjetaController::class)->middleware('auth');
+// Route::put('/tarjetas/{id}/editar_actividad', [TarjetaController::class ,'update_actividad'])->middleware('auth');
+// Route::get('/tarjetas/{id}/editar_actividad', [TarjetaController::class ,'editar_actividad'])->middleware('auth');
+// Route::delete('/tarjetas/{id1}/eliminar_actividad/{id2}', [TarjetaController::class ,'destroy_actividad'])->middleware('auth');
+// Route::post('/tarjetas/{id}/nueva_actividad', [TarjetaController::class ,'store_actividad'])->middleware('auth');
+// Route::get('/tarjetas/{id}/nueva_actividad', [TarjetaController::class ,'nueva_actividad'])->middleware('auth');
+// Route::get('/tarjetas/{id}/actividades', [TarjetaController::class ,'lista_actividades'])->middleware('auth');
+// Route::resource('/tarjetas', TarjetaController::class)->middleware('auth');
 
 /*
 ----------------------------------------
@@ -138,7 +139,7 @@ Route::delete('/cirugias/delete_autorizacion/{id}', [PropietarioController::clas
 Route::get('/propietarios/{id}/mascotas', [PropietarioController::class ,'listar_mascotas'])->middleware('auth');
 Route::resource('/propietarios', PropietarioController::class)->middleware('auth');
 
-Route::get('/mascotas/{id}/consultas', [ConsultaController::class, 'nuevo_mascota'])->middleware('auth');
+Route::get('/mascotas/{id}/consultas', [ConsultaController::class, 'consultas_mascota'])->middleware('auth');
 Route::resource('/consultas', ConsultaController::class)->middleware('auth');
 
 // Route::get('/mascotas/{id}/cirugias', [CirugiaController::class, 'nuevo_mascota'])->middleware('auth');
