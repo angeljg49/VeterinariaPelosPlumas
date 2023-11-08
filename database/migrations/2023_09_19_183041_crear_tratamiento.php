@@ -17,11 +17,11 @@ return new class extends Migration
             $table->Increments('tra_id');
             $table->integer('con_id');
             $table->integer('tra_tipo');
-            $table->integer('tra_farmaco');
+            $table->text('tra_farmaco');
             $table->integer('tra_mg');
             $table->integer('tra_ml');
-            $table->integer('tra_via');
-            $table->integer('tra_observaciones_indicaciones');
+            $table->text('tra_via');
+            $table->text('tra_observaciones_indicaciones');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('con_id')->references('con_id')->on('consulta')->onDelete('cascade');

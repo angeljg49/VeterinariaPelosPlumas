@@ -7,7 +7,8 @@
     <h3 class="title-header" style="text-transform: uppercase;">
         <i class="fa fa-file"></i>
         {{$titulo}}
-        <a href="{{url('consultas/'.Crypt::encryptString($mas_id).'/autorizar')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Nueva consulta</a>
+        <a href="{{url('propietarios/'.Crypt::encryptString($mascota->propietario->pro_id).'/mascotas')}}" class="btn btn-sm btn-secondary float-right" style="margin-left:10px;"><i class="fa fa-arrow-left"></i> Atras</a>
+        <a href="{{url('consultas/'.Crypt::encryptString($mas_id).'/registrar')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Nueva consulta</a>
     </h3>
     <div class="alert alert-secondary" role="alert">
         <div className="row">
@@ -27,7 +28,7 @@
                                 <div class="media-body">
                                     <h5 class="mt-0">Nota.-</h5>
                                     <p>
-                                        NO se tienen cirugías registradas hasta el momento.
+                                        NO se tienen consultas registradas hasta el momento.
                                     </p>
                                 </div>
                             </div>
@@ -39,7 +40,7 @@
                                 <tr>
                                     <th>MOTIVO CONSULTA</th>
                                     <th>DIAGNOSTIVO PRESUNTIVO</th>
-                                    <th>TRATAMIENTO</th>
+                                    <th>TRATAMIENTOS</th>
                                     <th>EXAMENES COMPLEMENTARIOS</th>
                                     <th>OPCION</th>
                                 </tr>
@@ -51,13 +52,26 @@
                                         {{$item->con_motivo}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->con_diagnostivo_presuntivo}}
+                                        {{$item->con_diagnostico_presuntivo}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->tratamientos.length == 0 ? "NO": "SI"}}
+                                        {{count($item->tratamientos)}}
+                                        {{-- <table class="table table-condensed table-bordered">
+                                            @foreach($item->tratamientos as $it)
+                                            <tr>
+                                                <td>{{$it->tra_farmaco}}</td>
+                                                <td>{{$it->tra_mg}}</td>
+                                                <td>{{$it->tra_ml}}</td>
+                                                <td>{{$it->tra_via}}</td>
+                                                <td>{{$it->tra_observaciones_indicaciones}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </table> --}}
+                                    {{-- {{$item->tratamientos.length == 0 ? "NO": "SI"}} --}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->examenes_complementarios.length == 0 ? "NO" : "SI"}}
+                                        {{count($item->examenes_complementarios)}}
+                                        {{-- {{$item->examenes_complementarios.length == 0 ? "NO" : "SI"}} --}}
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -65,7 +79,8 @@
                                             OPCION
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->aci_id}}" data-descripcion="consulta de fecha {{$item->aci_fecha}} y hora {{$item->aci_hora_ingreso}}" data-toggle="modal" data-target="#modal-eliminar-consulta" href="#"><i class="fa fa-trash"></i> Eliminar</a>
+                                            <a class="dropdown-item" href="{{url('consultas/show_consulta/'.Crypt::encryptString($item->con_id))}}"><i class="fa fa-eye"></i> Ver detalle</a>
+                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->con_id}}" data-descripcion="Consulta con motivo: {{$item->con_motivo}}" data-toggle="modal" data-target="#modal-eliminar-consulta" href="#"><i class="fa fa-trash"></i> Eliminar</a>
                                           </div>
                                         </div>
                                     </td>

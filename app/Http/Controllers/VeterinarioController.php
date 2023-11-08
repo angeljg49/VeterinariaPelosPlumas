@@ -50,7 +50,7 @@ class veterinarioController extends Controller
     public function store(Request $request)
     {
         $veterinario = new veterinario();
-        $veterinario->vet_nombre_completo = $request->input('vet_nombre_completo');
+        $veterinario->vet_nombre_completo = $request->input('vet_nombre');
         $veterinario->save();
         return redirect('veterinarios');
     }

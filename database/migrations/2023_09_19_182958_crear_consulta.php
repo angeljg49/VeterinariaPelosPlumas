@@ -17,11 +17,13 @@ return new class extends Migration
             $table->Increments('con_id');
             $table->integer('vet_id');
             $table->integer('mas_id');
-            $table->integer('cdi_id');
+            $table->integer('cdi_id')->nullable();
             $table->text('con_motivo');
             $table->text('con_antecedentes');
             $table->text('con_signos_clinicos');
             $table->text('con_diagnostico_presuntivo');
+            $table->text('con_quirurgico');
+            $table->text('con_higienico');
             $table->date('con_proxima_revision');
             $table->timestamps();
             $table->softDeletes();

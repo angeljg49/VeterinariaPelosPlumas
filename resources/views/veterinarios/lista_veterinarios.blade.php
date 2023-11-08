@@ -39,7 +39,7 @@
                                 @foreach($veterinarios as $item)
                                 <tr>
                                     <td class="text-center">
-                                        {{$item->vet_nombre}}
+                                        {{$item->vet_nombre_completo}}
                                     </td>
                                     <td>
                                         <div class="dropdown">
@@ -48,7 +48,7 @@
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="{{url('veterinarios/'.Crypt::encryptString($item->vet_id).'/editar')}}"><i class="fa fa-edit"></i> Editar</a>
-                                            @if ($item->razas->count() > 0)
+                                            @if (-1 > 0)
                                             <a class="dropdown-item disabled" href="#" title="La veterinario tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
                                             @else
                                             <a class="dropdown-item btn-eliminar-item" data-id="{{$item->vet_id}}" data-descripcion="{{$item->vet_nombre}}" data-toggle="modal" data-target="#modal-eliminar-veterinario" href="#"><i class="fa fa-trash"></i> Eliminar</a>

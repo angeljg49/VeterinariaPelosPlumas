@@ -139,7 +139,11 @@ Route::delete('/cirugias/delete_autorizacion/{id}', [PropietarioController::clas
 Route::get('/propietarios/{id}/mascotas', [PropietarioController::class ,'listar_mascotas'])->middleware('auth');
 Route::resource('/propietarios', PropietarioController::class)->middleware('auth');
 
+Route::get('/consultas/{id}/registrar', [ConsultaController::class, 'registrar'])->middleware('auth');
+Route::post('/consultas/store_consulta', [ConsultaController::class, 'store_consulta'])->middleware('auth');
 Route::get('/mascotas/{id}/consultas', [ConsultaController::class, 'consultas_mascota'])->middleware('auth');
+Route::get('/consultas/show_consulta/{id}', [ConsultaController::class, 'show_consulta'])->middleware('auth');
+Route::delete('/consultas/delete_consulta/{id}', [ConsultaController::class, 'delete_consulta'])->middleware('auth');
 Route::resource('/consultas', ConsultaController::class)->middleware('auth');
 
 // Route::get('/mascotas/{id}/cirugias', [CirugiaController::class, 'nuevo_mascota'])->middleware('auth');
