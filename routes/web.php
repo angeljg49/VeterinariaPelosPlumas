@@ -11,6 +11,7 @@ use App\Http\Controllers\PropietarioController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\CitaController;
 use App\Http\Controllers\CirugiaController;
 
 

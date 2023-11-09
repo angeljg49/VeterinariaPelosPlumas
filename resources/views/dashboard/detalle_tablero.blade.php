@@ -13,14 +13,77 @@
                 <!-- inicio card  -->
                 <div class="card card-stat">
                     <div class="card-body">
-                          </div>
-                            <hr>
-                            <hr>
-                            <div class="row">
+
+                        <div class="row">                            
+                            <div class="col-md-3">
+                                <div class="box-result">
+                                    <h1>{{$mascotas->count()}}</h1>
+                                    MASCOTAS REGISTRADAS
+                                </div>
                             </div>
+                            <div class="col-md-3">
+                              <div class="box-result">
+                                  <h1>{{$propietarios->count()}}</h1>
+                                  PROPIETARIOS REGISTRADOS
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="box-result">
+                                  <h1>{{$vacunas->count()}}</h1>
+                                  VACUNAS CONTROLADAS
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="box-result">
+                                  <h1>{{$vacunas_aplicadas->count()}}</h1>
+                                  VACUNAS APLICADAS
+                              </div>
+                            </div>
+                        </div>                        
+                        <hr>
+                        <div class="row">                            
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="box-result">
+                                            <h1>{{$cirugias->count()}}</h1>
+                                            CIRUGIAS ATENDIDAS
+                                        </div>        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box-result">
+                                            <h1>{{$consultas->count()}}</h1>
+                                            CONSULTAS ATENDIDAS
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="box-result">
+                                            <h1>{{$citas->count()}}</h1>
+                                            CITAS GENERADAS
+                                        </div>        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box-result">
+                                            <h1>{{$veterinarios->count()}}</h1>
+                                            VETERINARIOS REGISTRADOS
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="text-success">PACIENTES ATENDIDOS POR DIA</h4>
+                                <canvas id="grafica-consultas"></canvas>
+                            </div>
+                        </div>                       
+                        <hr> 
+                        
+                    </div>
+
                     </div>
                 </div>
-                <!-- fin card  -->
+        <!-- fin card  -->
 
 
 
@@ -35,6 +98,38 @@
 $(function(){
 
 
+});
+
+/*
+----------------------------------------
+GRAFICA DE CONSULTAS
+----------------------------------------
+*/
+const ctx = document.getElementById('grafica-consultas');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['07-11-2023', '08-11-2023', '09-11-2023'],
+    datasets: [{
+      label: 'Pacientes atendidos',
+      data: [{{10}}, {{3}}, {{4}}],
+      borderWidth: 1,
+      backgroundColor: [
+      'rgb(108, 117, 125, 0.6)',
+      'rgba(75, 152, 64, 0.6)',
+      'rgb(115, 194, 85, 0.6)'
+      ],      
+      hoverOffset: 5      
+    }]
+  },
+  options: {
+    // scales: {
+    //   y: {
+    //     beginAtZero: true
+    //   }
+    // }
+  }
 });
 
 
