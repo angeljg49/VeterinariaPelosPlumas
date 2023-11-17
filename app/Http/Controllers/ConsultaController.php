@@ -93,6 +93,7 @@ class ConsultaController extends Controller
         $consulta->con_quirurgico = $request->input('con_quirurgico');
         $consulta->con_higienico = $request->input('con_higienico');
         $consulta->con_proxima_revision = $request->input('con_proxima_revision');
+        $consulta->con_fecha = date('Y-m-d');
         $consulta->save();
 
         $signo = new SignoVital();

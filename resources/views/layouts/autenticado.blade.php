@@ -77,6 +77,9 @@
                         @if (Auth::user()->usu_rol == 1)
                         <a class="nav-item nav-link @if($modulo_activo == 'veterinarios'): active @endif" href="{{url('veterinarios')}}"><i class="fa fa-check"></i> VETERINARIOS</a>
                         @endif
+                        @if (Auth::user()->usu_rol == 1)
+                        <a class="nav-item nav-link @if($modulo_activo == 'reportes'): active @endif" href="{{url('reportes')}}"><i class="fa fa-signal"></i> REPORTES</a>
+                        @endif
 
                     </nav>
                     

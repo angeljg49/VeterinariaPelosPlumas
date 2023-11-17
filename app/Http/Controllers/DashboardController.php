@@ -25,6 +25,7 @@ use App\Models\Vacuna;
 use App\Models\VacunaAplicada;
 use App\Models\Veterinario;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -47,11 +48,17 @@ class DashboardController extends Controller
         $vacunas = Vacuna::all();
         $veterinarios = Veterinario::all();
         $cirugias = AutorizacionCirugia::all();
+        $consultas_por_dia = DB::table('consulta')
+        ->select("con_fecha as fecha", DB::raw('count(*) as total_consultas'))
+        ->groupBy('con_fecha')
+        ->orderBy('con_fecha','ASC')
+        ->get();      
 
         return view('dashboard.detalle_tablero', [
                                                     'usuarios'=>$usuarios, 
                                                     'titulo'=>$titulo, 
                                                     'citas'=>$citas, 
+                                                    'cpd'=>$consultas_por_dia, 
                                                     'propietarios'=>$propietarios, 
                                                     'mascotas'=>$mascotas, 
                                                     'vacunas_aplicadas'=>$vacunas_aplicadas, 

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('con_diagnostico_presuntivo');
             $table->text('con_quirurgico');
             $table->text('con_higienico');
+            $table->date('con_fecha');
             $table->date('con_proxima_revision');
             $table->timestamps();
             $table->softDeletes();

@@ -20,7 +20,7 @@ class AuthController extends Controller
         $credenciales = $request->validate([
             'uuo' => 'required',
             'ovc' => 'required',
-            'g-recaptcha-response' => 'required|recaptchav3:captcha,0.9' 
+            // 'g-recaptcha-response' => 'required|recaptchav3:captcha,0.9' 
         ]);
 
         if(Auth::attempt(['usu_nombre' => $usr, 'password' => $pwd])){

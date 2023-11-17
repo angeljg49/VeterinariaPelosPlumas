@@ -73,7 +73,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4 class="text-success">PACIENTES ATENDIDOS POR DIA</h4>
+                                <h4 class="text-success">CONSULTAS ATENDIDOS POR DIA</h4>
+                                {{-- @foreach ($cpd as $item)
+                                    {{$item->fecha}} {{$item->total_consultas}}
+                                    <br>
+                                @endforeach --}}
                                 <canvas id="grafica-consultas"></canvas>
                             </div>
                         </div>                       
@@ -110,10 +114,10 @@ const ctx = document.getElementById('grafica-consultas');
 new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['07-11-2023', '08-11-2023', '09-11-2023'],
+    labels: [<?php foreach($cpd as $item){ echo "'".$item->fecha."',";}?>],
     datasets: [{
-      label: 'Pacientes atendidos',
-      data: [{{10}}, {{3}}, {{4}}],
+      label: 'Consultas atendidas por dia',
+      data: [<?php foreach($cpd as $item){ echo "'".$item->total_consultas."',";}?>],
       borderWidth: 1,
       backgroundColor: [
       'rgb(108, 117, 125, 0.6)',
