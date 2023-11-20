@@ -68,7 +68,7 @@
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                             <a class="dropdown-item" href="{{url('propietarios/'.Crypt::encryptString($item->pro_id).'/editar')}}"><i class="fa fa-edit"></i> Editar</a>
-                                            @if ($item->citas->count() > 0 || $item->autorizaciones->count() > 0 || $item->mascotas->count() > 0 )
+                                            @if ($item->autorizaciones->count() > 0 || $item->mascotas->count() > 0 )
                                             <a class="dropdown-item disabled" href="#" title="El propietario tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
                                             @else
                                             <a class="dropdown-item btn-eliminar-item" data-id="{{$item->pro_id}}" data-descripcion="{{$item->pro_nombre_completo}}" data-toggle="modal" data-target="#modal-eliminar-propietario" href="#"><i class="fa fa-trash"></i> Eliminar</a>

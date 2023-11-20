@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('cita', function (Blueprint $table) {
             $table->Increments('cit_id');
             $table->integer('cdi_id');
-            $table->integer('pro_id');
+            $table->integer('mas_id');
             $table->timestamp('cit_fecha_hora_reserva');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('pro_id')->references('pro_id')->on('propietario');
+            $table->foreign('mas_id')->references('mas_id')->on('mascota');
             $table->foreign('cdi_id')->references('cdi_id')->on('cita_disponible');
         });
     }

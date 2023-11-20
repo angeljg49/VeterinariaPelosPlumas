@@ -8,6 +8,7 @@
         <i class="fa fa-tags"></i>
         {{$titulo}}
         <a href="{{url('citas')}}" class="btn btn-sm btn-secondary float-right" style="margin-left:10px;"><i class="fa fa-arrow-left"></i> ATRÁS</a>
+        <a href="{{url('propietarios/nuevo')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> NUEVA CITA</a>
     </h3>
     <div class="row">
         <div class="col-12">
@@ -66,6 +67,7 @@
                                             {{-- @if (count($item->citas) > 0)
                                             <a class="dropdown-item disabled" href="#" title="La ficha tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
                                             @else --}}
+                                            <a class="dropdown-item" href="#"><i class="fa fa-tag"></i> Reservar</a>
                                             <a class="dropdown-item" href="#"><i class="fa fa-tag"></i> Reservar</a>
                                             <a class="dropdown-item btn-eliminar-item" data-id="{{$item->cdi_id}}" data-descripcion="{{$item->cdi_fecha}}" data-toggle="modal" data-target="#modal-eliminar-citas-disponibles" href="#"><i class="fa fa-trash"></i> Eliminar</a>
                                             {{-- @endif --}}

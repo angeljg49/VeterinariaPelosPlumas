@@ -12,6 +12,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\CirugiaController;
 
 
@@ -101,7 +102,7 @@ Route::resource('/consultas', ConsultaController::class)->middleware('auth');
 
 // Route::get('/mascotas/{id}/cirugias', [CirugiaController::class, 'nuevo_mascota'])->middleware('auth');
 // Route::resource('/cirugias', CirugiaController::class)->middleware('auth');
-Route::get('/mascotas/{id}/citas', [CitaController::class, 'nuevo_mascota'])->middleware('auth');
+Route::get('/mascotas/{id}/citas', [CitaController::class, 'lista_citas_mascota'])->middleware('auth');
 Route::get('/citas/por_fecha/{fecha}', [CitaController::class, 'get_por_fecha'])->middleware('auth');
 Route::resource('/citas', CitaController::class)->middleware('auth');
 

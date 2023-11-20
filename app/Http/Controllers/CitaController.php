@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use App\Models\CitaDisponible;
+use App\Models\Mascota;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -33,10 +35,24 @@ class CitaController extends Controller
 
     public function get_por_fecha($fecha)
     {
-        $fecha = Crypt::decryptString($fecha);//Desencriptando parametro ID
+        $fecha = Crypt::decryptString($fecha);//Desencriptando parametro FECHA
         $citas = CitaDisponible::where('cdi_fecha', $fecha)->orderBy('cdi_nro', 'asc')->get();
 
         return view('citas.lista_citas_fecha', ['titulo'=>'Gestionar citas por fecha',
+                                          'citas' => $citas,
+                                          'modulo_activo' => $this->modulo
+                                         ]);
+    }
+
+
+    public function lista_citas_mascota($mas_id)
+    {
+        $id = Crypt::decryptString($mas_id);//Desencriptando parametro ID
+        $citas = Cita::where('mas_id', $id)->get();
+        $mascota = Mascota::where('mas_id', $id)->get();
+
+        return view('citas.lista_citas_mascota', ['titulo'=>'Gestionar citas de la mascota',
+                                          'mascota' => $mascota,
                                           'citas' => $citas,
                                           'modulo_activo' => $this->modulo
                                          ]);
