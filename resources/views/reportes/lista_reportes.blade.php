@@ -192,7 +192,7 @@
                               <div class="card-header" id="headingThree">
                                 <h2 class="mb-0">
                                   <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
-                                    Cantidad de autorizadas por mes
+                                    Cantidad de cirugias autorizadas por mes
                                   </button>
                                 </h2>
                               </div>

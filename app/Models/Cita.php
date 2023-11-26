@@ -12,10 +12,10 @@ class Cita extends Model
     protected $table = "cita";
     protected $primaryKey = "cit_id";
 
-    public function cita(){
+    public function cita_disponible(){
         return $this->belongsTo(CitaDisponible::class, 'cdi_id');
     }
-    public function propietario(){
-        return $this->belongsTo(Propietario::class, 'pro_id');
+    public function mascota(){
+        return $this->belongsTo(Mascota::class, 'mas_id');
     }
 }

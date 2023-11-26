@@ -13,7 +13,7 @@ class CitaDisponible extends Model
     protected $primaryKey = "cdi_id";
 
     public function citas(){
-        return $this->hasMany(Citas::class, 'cdi_id');
+        return $this->hasMany(Cita::class, 'cdi_id');
     }
     public function consultas(){
         return $this->hasMany(Consulta::class, 'cdi_id');

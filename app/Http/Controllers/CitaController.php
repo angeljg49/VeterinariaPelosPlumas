@@ -49,7 +49,7 @@ class CitaController extends Controller
     {
         $id = Crypt::decryptString($mas_id);//Desencriptando parametro ID
         $citas = Cita::where('mas_id', $id)->get();
-        $mascota = Mascota::where('mas_id', $id)->get();
+        $mascota = Mascota::where('mas_id', $id)->first();
 
         return view('citas.lista_citas_mascota', ['titulo'=>'Gestionar citas de la mascota',
                                           'mascota' => $mascota,
@@ -66,10 +66,24 @@ class CitaController extends Controller
      */
     public function create()
     {
-        $titulo = 'CREAR CITAS PROGRAMADAS';
+        // $titulo = 'RESERVAR CITA PROGRAMADA';
 
-        return view('citas.form_nueva_cita', ['titulo'=>$titulo, 
-                                                   'modulo_activo' => $this->modulo
+        // return view('citas.form_reservar_cita', ['titulo'=>$titulo, 
+        //                                            'modulo_activo' => $this->modulo
+        //                                          ]);
+    }
+
+    public function reservar($mas_id)
+    {
+        $titulo = 'RESERVAR CITA PROGRAMADA';
+        $id = Crypt::decryptString($mas_id);//Desencriptando parametro ID
+        $citas = CitaDisponible::where('cdi_estado', 0)->get();
+        $mascota = Mascota::where('mas_id', $id)->first();
+
+        return view('citas.form_reservar_cita', ['titulo'=>$titulo, 
+                'mascota' => $mascota,
+                'citas' => $citas,
+                'modulo_activo' => $this->modulo
                                                  ]);
     }
 
@@ -99,6 +113,22 @@ class CitaController extends Controller
             $fecha_hora = date ( 'Y-m-d H:i:s' , $fecha_hora);    
         }
         return redirect('citas');
+    }
+
+
+    public function store_reserva(Request $request)
+    {
+        $cita = new Cita();
+        $cita->mas_id = $request->input('mas_id');
+        $cita->cdi_id = $request->input('cdi_id');
+        $cita->cit_fecha_hora_reserva = $request->input('cit_fecha_hora_reserva');
+        $cita->save();
+
+        $cita_disponible = CitaDisponible::where('cdi_id',$request->input('cdi_id'))->first();
+        $cita_disponible->cdi_estado = 1;//ocupado
+        $cita_disponible->save();
+        
+        return redirect('mascotas/'.Crypt::encryptString($request->input('mas_id')).'/citas');
     }
 
     /**
@@ -143,6 +173,23 @@ class CitaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cita_disponible = CitaDisponible::where('cdi_id', $id)->first();
+        $cita_disponible->delete();
+        return redirect('citas');
     }
+    public function destroy_reserva($id)
+    {
+        $cita = Cita::where('cit_id', $id)->first();
+
+        $cita_disponible = CitaDisponible::where('cdi_id', $cita->cita_disponible->cdi_id)->first();
+        $cita_disponible->cdi_estado = 0;
+        $cita_disponible->save();
+
+        $mascota = Mascota::where('mas_id', $cita->mascota->mas_id)->first();
+        
+
+        $cita->delete();
+        return redirect('mascotas/'.Crypt::encryptString($mascota->mas_id).'/citas');
+    }
+
 }

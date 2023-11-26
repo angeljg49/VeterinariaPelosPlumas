@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use Illuminate\Http\Request;
 use App\Models\Consulta;
 use App\Models\ExamenComplementario;
@@ -45,17 +46,31 @@ class ConsultaController extends Controller
                                                          ]);
     }
 
-    public function registrar($id)
+    public function registrar($mas_id, $cit_id)
     {
-        $id = Crypt::decryptString($id);//Desencriptando parametro ID
+        $id = Crypt::decryptString($mas_id);//Desencriptando parametro ID
         $mascota = Mascota::where('mas_id', $id)->first();
         $veterinarios = Veterinario::all();
         
-        return view('consultas.form_nueva_consulta', ['titulo'=>'Registrar nueva consulta',
-                                                          'veterinarios' => $veterinarios,
-                                                          'mascota' => $mascota,
-                                                          'modulo_activo' => $this->modulo
-                                                         ]);
+        $cit_id = Crypt::decryptString($cit_id);
+
+        if($cit_id == 0){
+            return view('consultas.form_nueva_consulta', ['titulo'=>'Registrar nueva consulta',
+                                                            'veterinarios' => $veterinarios,
+                                                            'mascota' => $mascota,
+                                                            'modulo_activo' => $this->modulo
+                                                            ]);
+        }else{
+            $cita = Cita::where('cit_id',$cit_id)->first();
+            return view('consultas.form_nueva_consulta_cita', ['titulo'=>'Registrar nueva consulta',
+            'veterinarios' => $veterinarios,
+            'mascota' => $mascota,
+            'cita' => $cita,
+            'modulo_activo' => $this->modulo
+           ]);
+
+        }
+
     }
 
 
@@ -85,7 +100,7 @@ class ConsultaController extends Controller
         $consulta = new Consulta();
         $consulta->vet_id = 1;
         $consulta->mas_id = $request->input('mas_id');
-        $consulta->cdi_id = null;
+        $consulta->cdi_id = $request->input('cdi_id');
         $consulta->con_motivo = $request->input('con_motivo');
         $consulta->con_antecedentes = $request->input('con_antecedentes');
         $consulta->con_signos_clinicos = $request->input('con_signos_clinicos');

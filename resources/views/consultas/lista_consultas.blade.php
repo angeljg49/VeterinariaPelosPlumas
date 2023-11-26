@@ -8,7 +8,7 @@
         <i class="fa fa-file"></i>
         {{$titulo}}
         <a href="{{url('propietarios/'.Crypt::encryptString($mascota->propietario->pro_id).'/mascotas')}}" class="btn btn-sm btn-secondary float-right" style="margin-left:10px;"><i class="fa fa-arrow-left"></i> Atras</a>
-        <a href="{{url('consultas/'.Crypt::encryptString($mas_id).'/registrar')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Nueva consulta</a>
+        <a href="{{url('consultas/'.Crypt::encryptString($mas_id).'/registrar/'.Crypt::encryptString(0))}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Nueva consulta</a>
     </h3>
     <div class="alert alert-secondary" role="alert">
         <div className="row">

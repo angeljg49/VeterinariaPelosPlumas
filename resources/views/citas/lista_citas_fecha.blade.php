@@ -54,7 +54,11 @@
                                         @if ($item->cdi_estado == 0)
                                         <span class="badge badge-success">DISPONIBLE</span>
                                         @else
-                                        <span class="badge badge-secondary">OCUPADO</span>
+                                        <span class="badge badge-info">RESERVADO</span>
+                                        <br>
+                                        <small><span class="text-success">MASCOTA:</span> {{$item->citas[0]->mascota->mas_nombre}}</small>  |
+                                        <small><span class="text-success">PROPIETARIO:</span> {{$item->citas[0]->mascota->propietario->pro_nombre_completo}}</small>
+                                        
                                         @endif
                                     </td>
                                     <td>
@@ -63,12 +67,11 @@
                                             OPCION
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                            {{-- @if (count($item->citas) > 0)
+                                            @if (count($item->citas) > 0)
                                             <a class="dropdown-item disabled" href="#" title="La ficha tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
-                                            @else --}}
-                                            <a class="dropdown-item" href="#"><i class="fa fa-tag"></i> Reservar</a>
-                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->cdi_id}}" data-descripcion="{{$item->cdi_fecha}}" data-toggle="modal" data-target="#modal-eliminar-citas-disponibles" href="#"><i class="fa fa-trash"></i> Eliminar</a>
-                                            {{-- @endif --}}
+                                            @else
+                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->cdi_id}}" data-descripcion="Eliminar cita de fecha {{$item->cdi_fecha}} a horas {{$item->cdi_hora}}" data-toggle="modal" data-target="#modal-eliminar-citas-disponibles" href="#"><i class="fa fa-trash"></i> Eliminar</a>
+                                            @endif
                                           </div>
                                         </div>
                                     </td>
@@ -90,7 +93,7 @@
 
 
 {{-- INICIO MODAL: ELIMINAR veterinario --}}
-<div class="modal fade" id="modal-eliminar-veterinario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-eliminar-citas-disponibles" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#eee;">
@@ -123,7 +126,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
-          <form id="form-eliminar-item" action="{{url('veterinarios')}}" data-simple-action="{{url('veterinarios')}}" method="post">
+          <form id="form-eliminar-item" action="{{url('citas')}}" data-simple-action="{{url('citas')}}" method="post">
             @method('delete')
             @csrf
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Si, eliminar</button>

@@ -8,8 +8,15 @@
         <i class="fa fa-tags"></i>
         {{$titulo}}
         <a href="{{url('citas')}}" class="btn btn-sm btn-secondary float-right" style="margin-left:10px;"><i class="fa fa-arrow-left"></i> ATRÁS</a>
-        <a href="{{url('propietarios/nuevo')}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> NUEVA CITA</a>
+        <a href="{{url('citas/reservar/'.Crypt::encryptString($mascota->mas_id))}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-tag"></i> RESERVAR CITA</a>
     </h3>
+    <div class="alert alert-secondary" role="alert">
+        <div className="row">
+            <div class="col-md-6"><strong class="text-success">Mascota: </strong>{{$mascota->mas_nombre}}</div>
+            <div class="col-md-6"><strong class="text-success">Propietario: </strong>{{$mascota->propietario->pro_nombre_completo}}</div>
+        </div>
+    </div>    
+
     <div class="row">
         <div class="col-12">
                 <!-- inicio card  -->
@@ -32,9 +39,7 @@
                             <table class="table table-bordered tabla-datos">
                                 <thead>
                                 <tr>
-                                    <th>FECHA</th>
-                                    <th># FICHA</th>
-                                    <th>HORA</th>
+                                    <th>FECHA Y HORA </th>
                                     <th>ESTADO</th>
                                     <th>OPCION</th>
                                 </tr>
@@ -43,19 +48,13 @@
                                 @foreach($citas as $item)
                                 <tr>
                                     <td class="text-center">
-                                        {{$item->cdi_fecha}}
+                                        {{$item->cit_fecha_hora_reserva}}
                                     </td>
                                     <td class="text-center">
-                                        {{$item->cdi_nro}}
-                                    </td>
-                                    <td class="text-center">
-                                        {{$item->cdi_hora}}
-                                    </td>
-                                    <td class="text-center">
-                                        @if ($item->cdi_estado == 0)
+                                        @if ($item->cita_disponible->cdi_estado == 0)
                                         <span class="badge badge-success">DISPONIBLE</span>
                                         @else
-                                        <span class="badge badge-secondary">OCUPADO</span>
+                                        <span class="badge badge-info">RESERVADO</span>
                                         @endif
                                     </td>
                                     <td>
@@ -64,13 +63,8 @@
                                             OPCION
                                           </button>
                                           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                            {{-- @if (count($item->citas) > 0)
-                                            <a class="dropdown-item disabled" href="#" title="La ficha tiene registros asociados. NO es posible eliminarlo."><i class="fa fa-trash"></i> Eliminar</a>
-                                            @else --}}
-                                            <a class="dropdown-item" href="#"><i class="fa fa-tag"></i> Reservar</a>
-                                            <a class="dropdown-item" href="#"><i class="fa fa-tag"></i> Reservar</a>
-                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->cdi_id}}" data-descripcion="{{$item->cdi_fecha}}" data-toggle="modal" data-target="#modal-eliminar-citas-disponibles" href="#"><i class="fa fa-trash"></i> Eliminar</a>
-                                            {{-- @endif --}}
+                                            <a class="dropdown-item" href="{{url('consultas/'.Crypt::encryptString($mascota->mas_id).'/registrar/'.Crypt::encryptString($item->cit_id))}}" class="btn btn-sm btn-success float-right" style="margin-left:10px;"><i class="fa fa-plus"></i> Registrar consulta</a>
+                                            <a class="dropdown-item btn-eliminar-item" data-id="{{$item->cit_id}}" data-descripcion="Reserva de fecha y hora: {{$item->cit_fecha_hora_reserva}}" data-toggle="modal" data-target="#modal-eliminar-citas" href="#"><i class="fa fa-trash"></i> Eliminar</a>
                                           </div>
                                         </div>
                                     </td>
@@ -92,7 +86,7 @@
 
 
 {{-- INICIO MODAL: ELIMINAR veterinario --}}
-<div class="modal fade" id="modal-eliminar-veterinario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-eliminar-citas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#eee;">
@@ -125,7 +119,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
-          <form id="form-eliminar-item" action="{{url('veterinarios')}}" data-simple-action="{{url('veterinarios')}}" method="post">
+          <form id="form-eliminar-item" action="{{url('citas/delete_reserva')}}" data-simple-action="{{url('citas/delete_reserva')}}" method="post">
             @method('delete')
             @csrf
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Si, eliminar</button>

@@ -93,7 +93,7 @@ Route::delete('/cirugias/delete_autorizacion/{id}', [PropietarioController::clas
 Route::get('/propietarios/{id}/mascotas', [PropietarioController::class ,'listar_mascotas'])->middleware('auth');
 Route::resource('/propietarios', PropietarioController::class)->middleware('auth');
 
-Route::get('/consultas/{id}/registrar', [ConsultaController::class, 'registrar'])->middleware('auth');
+Route::get('/consultas/{mas_id}/registrar/{cit_id}', [ConsultaController::class, 'registrar'])->middleware('auth');
 Route::post('/consultas/store_consulta', [ConsultaController::class, 'store_consulta'])->middleware('auth');
 Route::get('/mascotas/{id}/consultas', [ConsultaController::class, 'consultas_mascota'])->middleware('auth');
 Route::get('/consultas/show_consulta/{id}', [ConsultaController::class, 'show_consulta'])->middleware('auth');
@@ -103,7 +103,10 @@ Route::resource('/consultas', ConsultaController::class)->middleware('auth');
 // Route::get('/mascotas/{id}/cirugias', [CirugiaController::class, 'nuevo_mascota'])->middleware('auth');
 // Route::resource('/cirugias', CirugiaController::class)->middleware('auth');
 Route::get('/mascotas/{id}/citas', [CitaController::class, 'lista_citas_mascota'])->middleware('auth');
+Route::get('/citas/reservar/{mas_id}', [CitaController::class, 'reservar'])->middleware('auth');
+Route::post('/citas/store_reserva', [CitaController::class, 'store_reserva'])->middleware('auth');
 Route::get('/citas/por_fecha/{fecha}', [CitaController::class, 'get_por_fecha'])->middleware('auth');
+Route::delete('/citas/delete_reserva/{cit_id}', [CitaController::class, 'destroy_reserva'])->middleware('auth');
 Route::resource('/citas', CitaController::class)->middleware('auth');
 
 Route::get('/mascotas/nuevo/{id}', [MascotaController::class, 'nuevo_mascota'])->middleware('auth');
