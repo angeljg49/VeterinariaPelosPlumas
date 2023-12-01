@@ -66,11 +66,11 @@ class CitaController extends Controller
      */
     public function create()
     {
-        // $titulo = 'RESERVAR CITA PROGRAMADA';
+        $titulo = 'CREAR CITAS PROGRAMADAS';
+        return view('citas.form_nueva_cita', ['titulo'=>$titulo, 
+                                                   'modulo_activo' => $this->modulo
+                                                 ]);        
 
-        // return view('citas.form_reservar_cita', ['titulo'=>$titulo, 
-        //                                            'modulo_activo' => $this->modulo
-        //                                          ]);
     }
 
     public function reservar($mas_id)
